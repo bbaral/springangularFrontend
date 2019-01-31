@@ -13,7 +13,7 @@ export class ContactComponent implements OnInit {
   contact: ContactModel[];
   newContact: ContactModel = new ContactModel();
   editing: boolean = false;
-  editingMode: ContactModel = new ContactModel(); //
+  editingMode: ContactModel = new ContactModel();
 
   constructor(private contactService: ContactService) { }
 
