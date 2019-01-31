@@ -1,0 +1,64 @@
+<div class="todo-content">
+  <h1 class="page-title">My Contact</h1>
+  <div class="todo-create">
+    <form #contactForm="ngForm" (ngSubmit)="createContact(contactForm)" novalidate>
+      <input
+        type="text"
+        id="name"
+        class="form-control"
+        placeholder="Type a contact and press enter..."
+        required
+        name="name"
+        [(ngModel)]="newContact.name"
+        #name="ngModel" >
+      <div *ngIf="name.errors && name.dirty"
+           class="alert alert-danger">
+        <div [hidden]="!name.errors.required">
+          Title is required.
+        </div>
+      </div>
+    </form>
+  </div>
+  <ul class="todo-list">
+    <li *ngFor="let con of contact" [class.completed]="con.completed === true" >
+      <div class="todo-row" *ngIf="!editing || editingMode.id != con.id">
+        <a class="todo-completed" (click)="toggleCompleted(con)">
+          <i class="material-icons toggle-completed-checkbox"></i>
+        </a>
+        <span class="todo-title">
+              {{con.id}}
+              {{con.name}}
+              {{con.address}}
+              {{con.city}}
+              {{con.state}}
+              {{con.phone}}
+              {{con.email}}
+              {{con.createdDate}}
+            </span>
+        <span class="todo-actions">
+                <a (click)="editContact(con)">
+                  <i class="material-icons edit">edit</i>
+                </a>
+                <a (click)="deleteContact(con.id)">
+                  <i class="material-icons delete">clear</i>
+                </a>
+            </span>
+      </div>
+      <div class="todo-edit" *ngIf="editing && editingMode.id === con.id">
+        <input class="form-control" type="text"
+               [(ngModel)]="editingMode.name" required>
+        <span class="edit-actions">
+                <a (click)="updateContact(editingMode)">
+                  <i class="material-icons">done</i>
+                </a>
+                <a (click)="clearEditing()">
+                  <i class="material-icons">clear</i>
+                </a>
+            </span>
+      </div>
+    </li>
+  </ul>
+  <div class="no-todos" *ngIf="contact && contact.length == 0">
+    <p>No Todos Found!</p>
+  </div>
+</div>
